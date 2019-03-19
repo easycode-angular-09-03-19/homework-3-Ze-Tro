@@ -1,21 +1,23 @@
 <h1> Car name - {{ carName }}</h1>
-<p [class.red] = "fuelValue < 10"> Fuel value: {{ fuelValue }} </p>
-<p>Current mileage: {{mileage}}</p>
+<p [class.red] = "car.fuelValue < 10"> Fuel value: {{ car.fuelValue }} </p>
+<p>Current mileage: {{car.mileage}}</p>
 <ul> Car characteristics:
-	<li *ngFor="let item of this.characteristics">{{ item }}</li>
+	<li *ngFor="let item of car.characteristics">{{ item }}</li>
 </ul>
-<div [ngClass]="'mileage'">
+<div [ngClass]="'car.mileage'">
 	<p>Input value for ride:</p>
 	<div>
-		<input [className]="'inpt'" type="text" [(ngModel)]="_addMiles" [disabled]= "!fuelValue">
-		<button [className]="'btn'" (click)="drive(_addMiles)" [disabled]= "!fuelValue">Let's drive!!!</button>
+		<!-- <input [className]="'inpt'" type="text" [(ngModel)]="addNewMilesValue"> -->
+		<input [className]="'inpt'" type="text" [(ngModel)]="addNewMilesValue" [disabled]= "!car.fuelValue">
+		<button [className]="'btn'" (click)="drive(addNewMilesValue)" [disabled]= "!car.fuelValue">Let's drive!!!</button>
+		<!-- <button [className]="'btn'" (click)="drive(addNewMilesValue)">Let's drive!!!</button> -->
 	</div>
 </div>
-<div *ngIf="fuelValue < 5" [ngClass]="'fuel'">
+<div *ngIf="car.fuelValue < 5" [ngClass]="'fuel'">
 	<p [className]="'red'">Not enought fuel.</p>
 	<p>Input value for refueling:</p>
 	<div>
-		<input [className]="'inpt'" type="text" [(ngModel)]="_addFuel">
-		<button [className]="'btn'" (click)="refuel()">Refuel!!!</button>
+		<input [className]="'inpt'" type="text" [(ngModel)]="this.addNewFuelValue">
+		<button [className]="'btn'" (click)="refuel(addNewFuelValue)">Refuel!!!</button>
 	</div>
 </div>

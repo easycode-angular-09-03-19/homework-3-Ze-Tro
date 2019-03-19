@@ -7,50 +7,65 @@ import { Car } from '../../interfaces/car.interface';
   templateUrl: './car.component.html',
   styleUrls: ['./car.component.css']
 })
-export class CarComponent implements Car {
-	public carName:string = 'Zaz';
-	public mileage: number = 100;
-	public fuelValue: number = 20;
+export class CarComponent {
 	
-	public characteristics: string[] = [
-		'engine: 2000 cc',
-		'maxSpeed: 200 kmph'
-	];
-	
-	protected _addFuel: string;
-	protected _addMiles: string;
-	protected _fuelTankVolume: number = 60;
+	public car: Car;
+	public carName:string;
+	public characteristics: string[];
+	protected _fuelTankVolume: number;
+	public mileage: number;
+	public fuelValue: number;
+	public addNewMilesValue: string;
+	public addNewFuelValue: string;
 
-	constructor() { }
+	constructor() {
+		this.car = {
+			carName: 'Zaz',
+			characteristics: [
+				'engine: 2000 cc',
+				'maxSpeed: 200 kmph'
+			],
+			fuelTankVolume: 60,
+			mileage: 100,
+			fuelValue: 20,
+		};
 	
-	public drive(addMiles: string): void {
-		let miles: number = +addMiles;
+	}
+	
+	
+	public drive(addNewMilesValue: string): void {
+		let newMilesValue: number = +addNewMilesValue;
 
-		if (!validNumber(miles)) {
+		if (!validNumber(newMilesValue)) {
 			throw new Error('Enter valid number:');
 		}
-		if (miles > this.fuelValue) {
-			this.mileage += this.fuelValue;
-			this.fuelValue = 0;
-			this._addMiles = '';
+
+
+		if (newMilesValue > this.car.fuelValue) {
+			this.car.mileage += this.car.fuelValue;
+			this.car.fuelValue = 0;
+			this.addNewMilesValue = '';
 		} else {
-			this.mileage += miles;
-			this.fuelValue -= miles;
-			this._addMiles = '';
+			this.car.mileage += newMilesValue;
+			this.car.fuelValue -= newMilesValue;
+			this.addNewMilesValue = '';
 		}
 	}
 
-	public refuel(_addFuel: string): void {
-		if (!validNumber(+this._addFuel)) {
+	public refuel(addNewFuelValue: string): void {
+		let newFuelValue: number = +addNewFuelValue;
+
+		if (!validNumber(newFuelValue)) {
 			throw new Error('Enter valid number:');
 		}
 
-		let refuelValue = +this._addFuel;
-		this.fuelValue += refuelValue;
-		this._addFuel = '';
+		let refuelValue = +this.addNewFuelValue;
+		this.car.fuelValue += refuelValue;
+		this.addNewFuelValue = '';
 	}
 }
-
 function validNumber(someNumber: number): boolean {
 	return (isFinite(someNumber) && someNumber > 0);
 }
+
+new CarComponent();

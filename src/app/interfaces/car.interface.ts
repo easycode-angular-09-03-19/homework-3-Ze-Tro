@@ -1,10 +1,7 @@
 export interface Car {
-	carName: string;
+	readonly carName: string;
+	readonly characteristics: string[];
+	readonly fuelTankVolume: number;
 	mileage: number;
 	fuelValue: number;
-	characteristics: string[];
-
-	drive(addMiles: string): void;
-	refuel(_addFuel: string): void;
-
 }
